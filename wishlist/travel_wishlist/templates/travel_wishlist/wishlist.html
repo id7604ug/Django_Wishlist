@@ -1,18 +1,17 @@
 {% extends 'travel_wishlist/base.html' %}
 {% block content %}
 
-<h2>Travel Wishlist</h2>
+  <form method="POST" action="{% url 'place_list' %}">
+    {% csrf_token %}
+    {{ form }}
+    <button id="add_new_place" type="submit">Add</button>
+  </form>
 
-<form method="POST" action="{% url 'place_list' %}">
-  {% csrf_token %}
-  {{ form }}
-  <button id="add_new_place" type="submit">Add</button>
-</form>
 
 {% for place in places %}
 
-<div>
-  <p id="place_name_{{ place.pk }}">{{ place.name }}</p>
+<div class=main-menu-wishlist-items>
+  <a href='/place/{{ place.pk }}/'><p id="place_name_{{ place.pk }}">{{ place.name }}</p></a>
 
   <form method="POST" action="{% url 'place_is_visited' %}">
     {% csrf_token %}

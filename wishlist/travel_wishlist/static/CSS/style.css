@@ -33,3 +33,9 @@ margin-top: 20px
 a:link, a:visited {
 color : #C6C7C4;
 }
+.view-edit-place {
+  background-color: #000000;
+}
+.main-menu-wishlist-items {
+  border: 2px solid black;
+}

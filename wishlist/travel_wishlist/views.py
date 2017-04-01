@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, reverse, get_object_or_404
 from django.conf.urls import url
 from .models import Place
-from .forms import NewPlaceForm
+from .forms import NewPlaceForm, ShowPlaceInfoForm
 # Create your views here.
 
 def place_list(request):
@@ -34,3 +34,18 @@ def place_is_visited(request):
         place.save()
 
     return redirect('place_list')
+
+def place_info(request, pk):
+    if request.method == "GET":
+        place = get_object_or_404(Place, pk=pk)
+        form = ShowPlaceInfoForm()
+        return render(request, 'travel_wishlist\place_info.html', {'place':place, 'form':form})
+
+def update_place_info(request):
+    if request.method == "POST":
+        form = ShowPlaceInfoForm(request.POST)
+        place = form.save()
+        if form.is_valid():
+            place.save()
+            return redirect('place_list')
+        return render(request, 'travel_wishlist\place_info.html', {'place':place, 'form':form})
